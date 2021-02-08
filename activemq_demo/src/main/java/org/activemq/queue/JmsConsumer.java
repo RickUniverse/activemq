@@ -12,9 +12,11 @@ import java.io.IOException;
  */
 public class JmsConsumer {
 
+    private static int count = 0;
+
     //  linux 上部署的activemq 的 IP 地址 + activemq 的端口号，如果用自己的需要改动
-    public static final String ACTIVEMQ_URI = "tcp://192.168.43.154:61616";
-    public static final String QUEUE_NAME = "queue01";
+    public static final String ACTIVEMQ_URI = "nio://192.168.43.154:61608";
+    public static final String QUEUE_NAME = "queue01_transport_protocol_nio——JDBC";
 
     public static void main(String[] args) throws JMSException, IOException {
         // 1,创建默认默认用户名密码的连接工厂
@@ -49,7 +51,7 @@ public class JmsConsumer {
                 if (null != message && message instanceof TextMessage) {
                     TextMessage textMessage = (TextMessage) message;
                     try {
-                        System.out.println(textMessage.getText() + "----");
+                        System.out.println(textMessage.getText() + "----处理了第:" + (++count));
                     } catch (JMSException e) {
                         e.printStackTrace();
                     }
